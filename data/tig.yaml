@@ -1,0 +1,177 @@
+app:
+  name: tig
+  details:
+    - group:
+      name: View Switching
+      items:
+        - key: m
+          command: view-main
+          action: Switch to main view.
+        - key: d
+          command: view-diff
+          action: Switch to diff view.
+        - key: l
+          action: Switch to log view.
+        - key: p
+          action: Switch to pager view.
+        - key: t
+          action: Switch to (directory) tree view.
+        - key: f
+          action: Switch to (file) blob view.
+        - key: g
+          action: Switch to grep view.
+        - key: b
+          action: Switch to blame view.
+        - key: r
+          action: Switch to refs view.
+        - key: y
+          action: Switch to stash view.
+        - key: h
+          action: Switch to help view
+        - key: s
+          action: Switch to status view
+        - key: c
+          action: Switch to stage view
+    - group:
+      name: View Manipulation
+      items:
+        - key: q
+          action: Close view, if multiple views are open it will jump back to the previous view in the view stack. If it is the last open view it will quit. Use Q to quit all views at once.
+        - key: Enter
+          action: This key is "context sensitive" depending on what view you are currently in. When in log view on a commit line or in the main view, split the view and show the commit diff. In the diff view pressing Enter will simply scroll the view one line down.
+        - key: Tab
+          action: Switch to next view.
+        - key: R
+          action: Reload and refresh the current view.
+        - key: O
+          action: Maximize the current view to fill the whole display.
+        - key: Up
+          action: This key is "context sensitive" and will move the cursor one line up. However, if you opened a diff view from the main view (split- or full-screen) it will change the cursor to point to the previous commit in the main view and update the diff view to display it. If you prefer this key to move the cursor or scroll within the diff view instead, use bind diff <Up> move-up or bind diff <Up> scroll-line-up, respectively.
+        - key: Down
+          action: Similar to Up but will move down.
+        - key: ,
+          action: Move to parent. In the tree view, this means switch to the parent directory. In the blame view it will load blame for the parent commit. For merges the parent is queried.
+    - group:
+      name: View Specific Actions
+      items:
+        - key: u
+          action: Update status of file. In the status view, this allows you to add an untracked file or stage changes to a file for next commit (similar to running git-add <filename>). In the stage view, when pressing this on a diff chunk line stages only that chunk for next commit, when not on a diff chunk line all changes in the displayed diff are staged.
+        - key: M
+          action: Resolve unmerged file by launching git-mergetool(1). Note, to work correctly this might require some initial configuration of your preferred merge tool. See the manpage of git-mergetool(1).
+        - key: !
+          action: Checkout file with unstaged changes. This will reset the file to contain the content it had at last commit.
+        - key: 1
+          action: Stage single diff line.
+        - key: @
+          action: Move to next chunk in the stage view.
+        - key: ']'
+          action: Increase the diff context.
+        - key: '['
+          action: Decrease the diff context.
+    - group:
+      name: Cursor Navigation
+      items:
+        - key: k
+          action: Move cursor one line up.
+        - key: j
+          action: Move cursor one line down.
+        - key: [PgUp, "-", a]
+          action: Move cursor one page up.
+        - key: [PgDown, Space]
+          action: Move cursor one page down.
+        - key: End
+          action: Jump to last line.
+        - key: Home
+          action: Jump to first line.
+    - group:
+      name: Scrolling
+      items:
+        - key: Insert
+          action: Scroll view one line up.
+        - key: Delete
+          action: Scroll view one line down.
+        - key: ScrollBack
+          action: Scroll view one page up.
+        - key: ScrollFwd
+          action: Scroll view one page down.
+        - key: Left
+          action: Scroll view one column left.
+        - key: Right
+          action: Scroll view one column right.
+        - key: '|'
+          action: Scroll view to the first column.
+    - group:
+      name: Searching
+      items:
+        - key: '/'
+          action: Search the view. Opens a prompt for entering search regexp to use.
+        - key: '?'
+          action: Search backwards in the view. Also prompts for regexp.
+        - key: n
+          action: Find next match for the current search regexp.
+        - key: N
+          action: Find previous match for the current search regexp.
+    - group:
+      name: Searching
+      items:
+        - key: Q
+          action: Quit.
+        - key: Ctrl-L
+          action: Redraw screen.
+        - key: z
+          action: Stop all background loading. This can be useful if you use Tig in a repository with a long history without limiting the revision log.
+        - key: v
+          action: Show version.
+        - key: o
+          action: Open option menu
+        - key: '#'
+          action: Toggle line numbers on/off.
+        - key: D
+          action: Toggle date display on/off/relative/relative-compact/custom
+        - key: A
+          action: Toggle author display on/off/abbreviated/email/email user name.
+        - key: G
+          action: Toggle revision graph visualization on/off.
+        - key: '~'
+          action: Toggle (line) graphics mode
+        - key: F
+          action: Toggle reference display on/off (tag and branch names).
+        - key: W
+          action: Toggle ignoring whitespace on/off for diffs
+        - key: X
+          action: Toggle commit ID display on/off
+        - key: '%'
+          action: Toggle file filtering in order to see the full diff instead of only the diff concerning the currently selected file.
+        - key: '$'
+          action: Toggle highlighting of commit title overflow.
+        - key: ':'
+          action: Open prompt. This allows you to specify what command to run and also to jump to a specific line, e.g. :23
+        - key: e
+          action: Open file in editor.
+    - group:
+      name: Prompt
+      items:
+        - key: :<number>
+          action: Jump to the specific line number, e.g. :80.
+        - key: :<sha>
+          action: Jump to a specific commit, e.g. :2f12bcc.
+        - key: :<x>
+          action: Execute the corresponding key binding, e.g. :q.
+        - key: :!<command>
+          action: Execute a system command in a pager, e.g. :!git log -p.
+        - key: :<action>
+          action: Execute a Tig command, e.g. :edit.
+        - key: :goto <rev>
+          action: Jump to a specific revision, e.g. :goto %(commit)^2 to goto the current commit’s 2nd parent or :goto some/branch to goto the commit denoting the branch some/branch.
+        - key: :save-display <file>
+          action: Save current display to <file>.
+        - key: :save-options <file>
+          action: Save current options to <file>.
+        - key: :save-view <file>
+          action: Save view info to <file> (for testing purposes).
+        - key: :script <file>
+          action: Execute commands from <file>.
+        - key: :exec <flags><args…​>
+          action: Execute command using <args> with external user-defined command option flags defined in <flags>.
+        - key: :echo <args…​>
+          action: Display text in the status bar.
